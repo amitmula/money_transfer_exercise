@@ -1,4 +1,21 @@
+# Database settings.
+database:
+
+  # the name of your JDBC driver
+  driverClass: org.h2.Driver
+
+  # the username
+  user: sa
+
+  # the password
+  password: sa
+
+  # the JDBC URL
+  url: jdbc:h2:./target/accountDb
+
 logging:
   level: INFO
   loggers:
     com.revolut.exerice: DEBUG
+    org.hibernate.SQL:
+      level: DEBUG

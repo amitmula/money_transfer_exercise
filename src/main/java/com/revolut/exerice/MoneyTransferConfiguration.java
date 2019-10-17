@@ -1,10 +1,19 @@
 package com.revolut.exerice;
 
-import io.dropwizard.Configuration;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.hibernate.validator.constraints.*;
-import javax.validation.constraints.*;
+import io.dropwizard.Configuration;
+import io.dropwizard.db.DataSourceFactory;
+import lombok.Data;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
+@Data
 public class MoneyTransferConfiguration extends Configuration {
-    // TODO: implement service configuration
+
+    @Valid
+    @NotNull
+    @JsonProperty("database")
+    private DataSourceFactory dataSourceFactory = new DataSourceFactory();
+
 }
