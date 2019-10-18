@@ -15,5 +15,36 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+        <createTable tableName="transfers">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="sender_account_id" type="bigint" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="recipient_account_id" type="bigint" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="amount" type="decimal">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="varchar(10)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseColumnNames="sender_account_id"
+             baseTableName="transfers"
+             constraintName="fk_sender_account_id"
+             onDelete="CASCADE"
+             onUpdate="RESTRICT"
+             referencedColumnNames="id"
+             referencedTableName="account"/>
+        <addForeignKeyConstraint baseColumnNames="recipient_account_id"
+             baseTableName="transfers"
+             constraintName="fk_recipient_account_id"
+             onDelete="CASCADE"
+             onUpdate="RESTRICT"
+             referencedColumnNames="id"
+             referencedTableName="account"/>
     </changeSet>
 </databaseChangeLog>

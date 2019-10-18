@@ -1,4 +1,3 @@
-template: Hello, %s!
 # Database settings.
 database:
 
@@ -13,8 +12,6 @@ database:
 
   # the JDBC URL
   url: jdbc:h2:./target/accountDb
-
-defaultName: Stranger
 
 logging:
   level: INFO
