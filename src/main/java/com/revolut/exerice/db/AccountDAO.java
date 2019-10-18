@@ -6,14 +6,18 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 public class AccountDAO extends AbstractDAO<Account> {
-    public AccountDAO(SessionFactory factory) {
-        super(factory);
+
+    public AccountDAO(SessionFactory factory) { super(factory); }
+
+    public Account save(Account account) {
+        return persist(account);
     }
 
-    public Account create(Account account) {
-        return persist(account);
+    public Optional<Account> findById(Long id) {
+        return Optional.ofNullable(get(id));
     }
 
     @SuppressWarnings("unchecked")
