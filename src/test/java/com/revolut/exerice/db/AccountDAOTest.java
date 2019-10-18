@@ -30,7 +30,7 @@ public class AccountDAOTest {
 
     @Test
     public void createAccount() {
-        final Account account = daoTestRule.inTransaction(() -> accountDAO.create(new Account(BigDecimal.valueOf(4000.34))));
+        final Account account = daoTestRule.inTransaction(() -> accountDAO.save(new Account(BigDecimal.valueOf(4000.34))));
         assertThat(account.getId()).isGreaterThan(0);
         assertThat(account.getBalance()).isEqualTo(BigDecimal.valueOf(4000.34));
         assertThat(accountDAO.findAll().size() == 1);
@@ -39,9 +39,9 @@ public class AccountDAOTest {
     @Test
     public void findAll() {
         daoTestRule.inTransaction(() -> {
-            accountDAO.create(new Account(BigDecimal.valueOf(3400)));
-            accountDAO.create(new Account(BigDecimal.valueOf(3500)));
-            accountDAO.create(new Account(BigDecimal.valueOf(3600)));
+            accountDAO.save(new Account(BigDecimal.valueOf(3400)));
+            accountDAO.save(new Account(BigDecimal.valueOf(3500)));
+            accountDAO.save(new Account(BigDecimal.valueOf(3600)));
         });
 
         final List<Account> accounts = accountDAO.findAll();
@@ -51,6 +51,6 @@ public class AccountDAOTest {
     @Test
     public void handlesNullBalance() {
         assertThatExceptionOfType(ConstraintViolationException.class).isThrownBy(()->
-            daoTestRule.inTransaction(() -> accountDAO.create(new Account(null))));
+            daoTestRule.inTransaction(() -> accountDAO.save(new Account(null))));
     }
 }
