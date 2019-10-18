@@ -20,18 +20,18 @@ curl -X POST \
 }'
 ```
 Response :
-````json
+```json
 {
     "id": 1,
     "balance": 4000
 }
-````
+```
 
 
 ### To request a transfer:
 
 Request :
-````sh
+```sh
 curl -X POST \
   http://localhost:8080/transfer \
   -H 'content-type: application/json' \
@@ -40,10 +40,10 @@ curl -X POST \
 	"recipientAccountId": "2",
 	"amount": "45.56"
 }'
-````
+```
 
 Response:
-````json
+```json
 {
     "id": 1,
     "senderAccountId": 1,
@@ -51,17 +51,17 @@ Response:
     "amount": 45.56,
     "status": "SUBMITTED"
 }
-````
+```
 
 ### To check the transferStatus
 
 Request :
-````sh
+```sh
 curl -X GET http://localhost:8080/transfer/1
-````
+```
 
 Response :
-````json
+```json
 {
     "id": 1,
     "senderAccountId": 1,
@@ -69,4 +69,10 @@ Response :
     "amount": 45.56,
     "status": "PROCESSED"
 }
-````
+```
+
+# Tests
+
+```sh
+mvn test
+```
