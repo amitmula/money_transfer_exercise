@@ -19,9 +19,9 @@ public class MoneyTransferQueue {
         this.transferRequests = transferQueue;
     }
 
-    public long addTransferRequest(TransferRequest transferRequest) throws InterruptedException {
+    public TransferRequest addTransferRequest(TransferRequest transferRequest) throws InterruptedException {
         logger.info("adding request to queue -> {}", transferRequest);
         transferRequests.put(transferRequest);
-        return transferRequest.getId();
+        return transferRequest;
     }
 }

@@ -8,9 +8,7 @@ import io.dropwizard.hibernate.UnitOfWork;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @Path("/transfer")
@@ -27,10 +25,8 @@ public class MoneyTransferResource {
 
     @POST
     @UnitOfWork
-    public Map transferMoney(TransferRequest transferRequest) throws InterruptedException {
-        Map transferSubmitResponse = new HashMap();
-        transferSubmitResponse.put("id", moneyTransferQueue.addTransferRequest(transferRequestDAO.save(transferRequest)));
-        return transferSubmitResponse;
+    public TransferRequest transferMoney(TransferRequest transferRequest) throws InterruptedException {
+        return moneyTransferQueue.addTransferRequest(transferRequestDAO.save(transferRequest));
     }
 
     @GET

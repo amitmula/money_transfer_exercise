@@ -16,7 +16,6 @@ import javax.ws.rs.core.MediaType;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -60,10 +59,9 @@ public class IntegrationTest {
         transferRequest.setSenderAccountId(newSenderAccount.getId());
         transferRequest.setRecipientAccountId(newRecipientAccount.getId());
         transferRequest.setAmount(BigDecimal.valueOf(500));
-        Map transferRequestResponse = postTransferRequest(transferRequest);
-        String transferRequestId = transferRequestResponse.get("id").toString();
-        assertThat(transferRequestId != null);
-        while(getTransferRequest(Long.valueOf(transferRequestId)).getStatus() != TransferStatus.PROCESSED);
+        TransferRequest transferRequestResponse = postTransferRequest(transferRequest);
+        long transferRequestId = transferRequestResponse.getId();
+        while(getTransferRequest(transferRequestId).getStatus() != TransferStatus.PROCESSED);
         assertThat(getAccount(newSenderAccount.getId()).getBalance().compareTo(BigDecimal.valueOf(4500)) == 0);
         assertThat(getAccount(newRecipientAccount.getId()).getBalance().compareTo(BigDecimal.valueOf(5500)) == 0);
     }
@@ -75,11 +73,11 @@ public class IntegrationTest {
             .readEntity(Account.class);
     }
 
-    private Map postTransferRequest(TransferRequest transferRequest) {
+    private TransferRequest postTransferRequest(TransferRequest transferRequest) {
         return RULE.client().target("http://localhost:" + RULE.getLocalPort() + "/transfer")
             .request()
             .post(Entity.entity(transferRequest, MediaType.APPLICATION_JSON_TYPE))
-            .readEntity(Map.class);
+            .readEntity(TransferRequest.class);
     }
 
     private TransferRequest getTransferRequest(long id) {
